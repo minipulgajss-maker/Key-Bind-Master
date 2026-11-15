@@ -101,3 +101,12 @@ footer { padding: 32px var(--gutter) 48px; text-align: center; font-size: 14px; 
   .hero-shot { animation-delay: 160ms; }
   @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
 }
+
+.thanks { max-width: 640px; margin: 0 auto; padding: clamp(48px, 10vw, 120px) var(--gutter); display: grid; gap: 20px; justify-items: start; }
+.thanks img { border-radius: 18px; box-shadow: var(--shadow-float); animation: drop 900ms var(--ease-out) both; }
+.thanks h1 { font-size: clamp(32px, 5vw, 48px); }
+.thanks .lead { margin-top: 0; }
+.steps { margin: 0; padding-left: 1.4em; display: grid; gap: 8px; }
+.steps li::marker { color: var(--sienna); font-weight: 800; }
+@keyframes drop { from { opacity: 0; transform: translateY(-18px) scale(0.9); } }
+@media (prefers-reduced-motion: reduce) { .thanks img { animation: none; } }
