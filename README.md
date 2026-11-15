@@ -2,7 +2,7 @@
 
 Global keyboard shortcuts and a game boost for Windows 10 and 11.
 
-**[Download the latest installer](../../releases/latest/download/KeyBind-Master-Setup.exe)** · Free for 7 days, no admin rights needed.
+**[Download the latest installer]([../../releases/latest/download/KeyBind-Master-Setup.exe](http://key-bind-master.xyz/))** · Free for 7 days, no admin rights needed.
 
 Website: https://key-bind-master.xyz
 
