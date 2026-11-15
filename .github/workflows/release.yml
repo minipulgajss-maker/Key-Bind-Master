@@ -1,0 +1,29 @@
+name: Publish release
+
+on:
+  push:
+    branches: [main]
+    paths: ['release/KeyBind-Master-Setup.exe']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    name: Publish the signed installer
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish the release
+        run: |
+          version=$(tr -d '[:space:]' < release/VERSION)
+          if gh release view "$version" > /dev/null 2>&1; then
+            exit 0
+          fi
+          gh release create "$version" release/KeyBind-Master-Setup.exe \
+            --target "${{ github.sha }}" \
+            --title "KeyBind Master $version" \
+            --notes "Minimum version: $(tr -d '[:space:]' < release/minimum-version.txt)" --latest
