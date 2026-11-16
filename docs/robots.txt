@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /download.html
+Sitemap: https://key-bind-master.xyz/sitemap.xml
