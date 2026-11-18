@@ -29,7 +29,8 @@ p { margin: 0; text-wrap: pretty; }
 .brand img { border-radius: 10px; }
 .top nav { display: flex; gap: 24px; font-size: 15px; font-weight: 600; }
 .top nav a { text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; transition: border-color 160ms var(--ease-out); }
-.top nav a:hover { border-color: var(--sienna); }
+.top nav a:hover, .top nav a[aria-current] { border-color: var(--sienna); }
+.top nav a[aria-current] { color: var(--sienna); }
 
 .btn { display: inline-flex; align-items: center; justify-content: center; padding: 10px 20px; border-radius: 12px; font-weight: 700; font-size: 15px; text-decoration: none; transition: transform 140ms var(--ease-out), box-shadow 160ms var(--ease-out), background 160ms var(--ease-out); }
 .btn:active { transform: scale(0.97); }
