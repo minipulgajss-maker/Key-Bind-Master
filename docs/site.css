@@ -15,7 +15,7 @@
   --gutter: clamp(16px, 5vw, 48px);
 }
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+html { scroll-padding-top: 88px; }
 body { margin: 0; background: var(--sand); color: var(--cognac); font: 400 17px/1.55 var(--font); -webkit-font-smoothing: antialiased; }
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; }

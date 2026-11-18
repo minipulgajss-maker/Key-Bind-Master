@@ -33,13 +33,40 @@ function setPath(id, push) {
   history[push ? 'pushState' : 'replaceState']({ id }, '', path);
 }
 
+const SCROLL_OFFSET = 88;
 let steering = false;
+let glide = 0;
+
+function glideTo(top, done) {
+  cancelAnimationFrame(glide);
+  const from = window.scrollY;
+  const distance = top - from;
+  const duration = Math.min(1100, 420 + Math.abs(distance) * 0.25);
+  const start = performance.now();
+  const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+  const step = (now) => {
+    const t = Math.min(1, (now - start) / duration);
+    window.scrollTo({ top: from + distance * ease(t), behavior: 'instant' });
+    if (t < 1) glide = requestAnimationFrame(step);
+    else {
+      steering = false;
+      done();
+    }
+  };
+  glide = requestAnimationFrame(step);
+}
 window.addEventListener('scrollend', () => (steering = false));
 
 function goTo(id, smooth) {
   if (smooth) steering = true;
   const target = id ? document.getElementById(id) : document.getElementById('top');
-  target?.scrollIntoView({ behavior: smooth ? 'smooth' : 'instant', block: 'start' });
+  if (!target) return;
+  const top = id ? target.getBoundingClientRect().top + window.scrollY - SCROLL_OFFSET : 0;
+  if (smooth) glideTo(top, () => {
+    markCurrent(id);
+    setPath(id, false);
+  });
+  else window.scrollTo(0, top);
   markCurrent(id);
 }
 
