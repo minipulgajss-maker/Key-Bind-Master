@@ -1,4 +1,4 @@
-Admin is now opened with Discord
-- Admin no longer uses a password or a signing code
-- It opens only for the owner's Discord account
-- Sign in with Discord first, then paste the admin key once
+Checkout
+- Choose a plan to open a new full-screen Checkout
+- Apply a discount code
+- Payments are not open yet, so nothing can be bought in this version
