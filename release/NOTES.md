@@ -1,4 +1,3 @@
-Sign-in removed
-- The old email and password sign-in is gone, and its saved data is deleted on start
-- The welcome screen no longer asks you to sign in
-- Plans and codes stay on this PC
+Sign in with Discord
+- The Account menu has a new "Sign in with Discord" button
+- It opens Discord in your browser and shows your name and avatar in the app
