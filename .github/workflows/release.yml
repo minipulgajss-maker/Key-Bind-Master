@@ -17,12 +17,21 @@ jobs:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
-      - name: Publish the release
+      - name: Check the version
+        id: check
         run: |
           version=$(tr -d '[:space:]' < release/VERSION)
-          if gh release view "$version" > /dev/null 2>&1; then
-            exit 0
-          fi
+          if gh release view "$version" > /dev/null 2>&1; then echo "new=false" >> "$GITHUB_OUTPUT"; else echo "new=true" >> "$GITHUB_OUTPUT"; fi
+      - name: Announce on Discord
+        continue-on-error: true
+        if: steps.check.outputs.new == 'true' || github.event_name == 'workflow_dispatch'
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+        run: node .github/discord/post.mjs
+      - name: Publish the release
+        if: steps.check.outputs.new == 'true'
+        run: |
+          version=$(tr -d '[:space:]' < release/VERSION)
           {
             echo "version: $version"
             echo "files:"
@@ -36,4 +45,4 @@ jobs:
           gh release create "$version" release/KeyBind-Master-Setup.exe latest.yml \
             --target "${{ github.sha }}" \
             --title "KeyBind Master $version" \
-            --notes "Minimum version: $(tr -d '[:space:]' < release/minimum-version.txt)" --latest
+            --notes-file release/NOTES.md --latest
