@@ -25,12 +25,14 @@
 <header class="top">
   <a class="brand" href="./"><img src="img/icon.png" alt="" width="36" height="36"><span>KeyBind Master</span></a>
   <nav aria-label="Sections">
-    <a href="./#features">Features</a>
-    <a href="./#boost">Boost</a>
-    <a href="./#pro">Free Pro</a>
-    <a href="./#faq">FAQ</a>
+    <a href="./#features" data-i18n="nav.features">Features</a>
+    <a href="./#boost" data-i18n="nav.boost">Boost</a>
+    <a href="./#pro" data-i18n="nav.pro">Free Pro</a>
+    <a href="./#faq" data-i18n="nav.faq">FAQ</a>
+    <a href="feedback.html" data-i18n="nav.feedback">Feedback</a>
   </nav>
-  <a class="btn btn-primary" href="download.html">Download</a>
+  <select class="lang" data-lang-select aria-label="Language"></select>
+  <a class="btn btn-primary" href="download.html" data-download data-i18n="nav.download">Download</a>
 </header>
 <main class="legal">
   <h1>Privacy Policy</h1>
@@ -50,6 +52,7 @@
       <tr><td>A scrambled form of your IP address</td><td>To stop invite abuse from the same network. Your real IP address is not stored</td></tr>
       <tr><td>App version and the time of the request</td><td>To block old versions and replayed requests</td></tr>
       <tr><td>Invite codes and code IDs you use</td><td>To give you Pro time and to turn off codes that were removed</td></tr>
+      <tr><td>Only if you send feedback on the website: your rating, message, the optional name you type and the language of the page</td><td>To read your opinion and improve the app. The message is checked by an automatic filter for spam and abuse first. We do not store your email, and your IP address is only kept in a scrambled form for a short time to limit abuse</td></tr>
     </tbody>
   </table>
   <p>This is sent to the KeyBind server, which runs on Cloudflare, only when you use invites or codes and a few times a day to keep Pro time up to date.</p>
@@ -85,7 +88,8 @@
   <p>If this policy changes, the date at the top will change too.</p>
 </main>
 <footer>
-  <p>© 2026 KeyBind Master. All rights reserved. · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="https://github.com/minipulgajss-maker/Key-Bind-Master/issues">Report a problem</a></p>
+  <p>© 2026 KeyBind Master. <span data-i18n="foot.rights">All rights reserved.</span> · <a href="terms.html" data-i18n="foot.terms">Terms</a> · <a href="privacy.html" data-i18n="foot.privacy">Privacy</a> · <a href="feedback.html" data-i18n="nav.feedback">Feedback</a> · <a href="https://github.com/minipulgajss-maker/Key-Bind-Master/issues" data-i18n="foot.problem">Report a problem</a></p>
 </footer>
+<script type="module" src="site.js"></script>
 </body>
 </html>

@@ -1,18 +1,63 @@
+import { startLanguage } from './i18n.js';
+
+let versionLine = '';
+
+function paintVersion() {
+  if (!versionLine) return;
+  document.querySelectorAll('[data-version]').forEach((element) => (element.textContent = versionLine));
+}
+
 async function showVersion() {
   try {
     const response = await fetch('version.json', { cache: 'no-store' });
     if (!response.ok) return;
     const { version, size } = await response.json();
     const megabytes = size ? ` · ${(size / 1048576).toFixed(1)} MB` : '';
-    document.querySelectorAll('[data-version]').forEach((element) => {
-      element.textContent = `Version ${version}${megabytes} · Windows 10 or 11`;
-    });
+    versionLine = `v${version}${megabytes} · Windows 10 / 11 · 64-bit`;
+    paintVersion();
   } catch {
     return;
   }
 }
 
+startLanguage();
+document.addEventListener('kbm-language', paintVersion);
 showVersion();
+
+const reveals = [...document.querySelectorAll('.reveal')];
+if ('IntersectionObserver' in window && reveals.length) {
+  const seen = new IntersectionObserver(
+    (entries) =>
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('in');
+        seen.unobserve(entry.target);
+      }),
+    { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }
+  );
+  reveals.forEach((element) => seen.observe(element));
+} else reveals.forEach((element) => element.classList.add('in'));
+
+const counters = [...document.querySelectorAll('[data-count]')];
+if (counters.length && !matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+  const counting = new IntersectionObserver(
+    (entries) =>
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        counting.unobserve(entry.target);
+        const goal = Number(entry.target.dataset.count);
+        const start = performance.now();
+        const tick = (now) => {
+          const t = Math.min(1, (now - start) / 900);
+          entry.target.textContent = String(Math.round(goal * (1 - (1 - t) ** 3)));
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }),
+    { threshold: 0.6 }
+  );
+  counters.forEach((element) => counting.observe(element));
+}
 
 const SECTIONS = ['features', 'boost', 'pro', 'faq'];
 const navLinks = [...document.querySelectorAll('.top nav a[href^="#"]')];
