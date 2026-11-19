@@ -1,3 +1,3 @@
-Admin fixes
-- The Admin menu stays visible for the owner after signing in with Discord
-- If no admin key is saved, Admin shows what to do
+Admin without a password
+- Admin opens with the owner's Discord login only
+- Paste the admin key once in Codes, no password needed
