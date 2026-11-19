@@ -1,0 +1,28 @@
+name: Discord
+
+on:
+  push:
+    branches: [main]
+    paths: ['release/VERSION', '.github/discord/**', '.github/workflows/discord.yml']
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: discord
+  cancel-in-progress: false
+
+jobs:
+  info:
+    runs-on: ubuntu-latest
+    env:
+      DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Keep the info message up to date
+        run: node .github/discord/info.mjs
+      - name: Apply automatic moderation
+        run: node .github/discord/automod.mjs

@@ -1,0 +1,67 @@
+{
+ "plans": [
+  {
+   "id": "lite",
+   "name": "Lite",
+   "tagline": "The basics, unlocked",
+   "monthly": 0.49,
+   "perks": [
+    "All app themes",
+    "Up to 3 shortcut profiles",
+    "Clean temporary files",
+    "No reminders to upgrade"
+   ]
+  },
+  {
+   "id": "pro",
+   "name": "Pro",
+   "tagline": "For everyday gaming",
+   "monthly": 0.99,
+   "popular": true,
+   "perks": [
+    "Everything in Lite",
+    "Game boost with every optimization",
+    "Macros",
+    "Fastest server picker",
+    "Unlimited profiles"
+   ]
+  },
+  {
+   "id": "max",
+   "name": "Max",
+   "tagline": "For the lowest, steadiest ping",
+   "monthly": 1.99,
+   "perks": [
+    "Everything in Pro",
+    "Network tuning: game traffic first",
+    "Downloads held back while you play",
+    "Real FPS and game ping charts",
+    "Route applied to supported games"
+   ]
+  },
+  {
+   "id": "ultra",
+   "name": "Ultra",
+   "tagline": "Everything, first",
+   "monthly": 2.99,
+   "perks": [
+    "Everything in Max",
+    "Early access to new features",
+    "Priority support",
+    "Use it on up to 3 PCs",
+    "Ultra badge in the app"
+   ]
+  }
+ ],
+ "lifetime": {
+  "id": "lifetime",
+  "name": "Lifetime",
+  "price": 9.99,
+  "perks": [
+   "Everything in Ultra",
+   "Pay once, never again",
+   "Every future feature included"
+  ]
+ },
+ "yearlyMonths": 10
+}
