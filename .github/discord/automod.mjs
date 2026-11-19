@@ -4,8 +4,9 @@ const BLOCK = { type: 1, metadata: { custom_message: 'Message blocked by KeyBind
 const alert = (channelId) => ({ type: 2, metadata: { channel_id: channelId } });
 const timeout = (seconds) => ({ type: 3, metadata: { duration_seconds: seconds } });
 
-const rules = (log) => [
-  { name: 'KBM · Spam', event_type: 1, trigger_type: 3, actions: [BLOCK, alert(log)] },
+const rules = (log, trap, others, staff) => [
+  { name: 'KBM · Honeypot', event_type: 1, trigger_type: 1, trigger_metadata: { regex_patterns: ['[\\s\\S]'], allow_list: [] }, actions: [BLOCK, alert(log), timeout(2419200)], exempt_channels: others, exempt_roles: staff },
+  { name: 'KBM · Spam', event_type: 1, trigger_type: 3, actions: [BLOCK, alert(log)], exempt_roles: staff },
   { name: 'KBM · Mass mentions', event_type: 1, trigger_type: 5, trigger_metadata: { mention_total_limit: 5, mention_raid_protection_enabled: true }, actions: [BLOCK, alert(log), timeout(3600)] },
   { name: 'KBM · Bad words', event_type: 1, trigger_type: 4, trigger_metadata: { presets: [1, 2, 3], allow_list: [] }, actions: [BLOCK, alert(log)] },
   {
@@ -40,8 +41,16 @@ const rules = (log) => [
 
 for (const guild of await guilds()) {
   const log = await channelIn(guild.id, 'mod-log', { permission_overwrites: [{ id: guild.id, type: 0, deny: '1024' }] });
-  const existing = await call(`/guilds/${guild.id}/auto-moderation/rules`);
-  for (const rule of rules(log.id)) {
+  const [existing, channels, roles] = await Promise.all([
+    call(`/guilds/${guild.id}/auto-moderation/rules`),
+    call(`/guilds/${guild.id}/channels`),
+    call(`/guilds/${guild.id}/roles`)
+  ]);
+  const trap = channels.find((item) => item.name === 'honeypot');
+  const others = channels.filter((item) => item.id !== trap?.id && [0, 2, 5, 13, 15].includes(item.type)).map((item) => item.id).slice(0, 50);
+  const staff = roles.filter((role) => ['Admin', 'Moderator'].includes(role.name)).map((role) => role.id);
+  const wanted = rules(log.id, trap, others, staff).filter((rule) => trap || rule.name !== 'KBM · Honeypot');
+  for (const rule of wanted) {
     const current = existing.find((item) => item.name === rule.name);
     const body = { ...rule, enabled: true };
     if (current) await call(`/guilds/${guild.id}/auto-moderation/rules/${current.id}`, { method: 'PATCH', json: { ...body, trigger_type: undefined } });

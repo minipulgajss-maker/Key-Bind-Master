@@ -26,3 +26,13 @@ jobs:
         run: node .github/discord/info.mjs
       - name: Apply automatic moderation
         run: node .github/discord/automod.mjs
+
+  setup:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    env:
+      DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Roles, channels and permissions
+        run: node .github/discord/setup.mjs
