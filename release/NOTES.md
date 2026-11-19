@@ -1,3 +1,4 @@
-Sign in with Discord
-- The Account menu has a new "Sign in with Discord" button
-- It opens Discord in your browser and shows your name and avatar in the app
+Admin is now opened with Discord
+- Admin no longer uses a password or a signing code
+- It opens only for the owner's Discord account
+- Sign in with Discord first, then paste the admin key once
