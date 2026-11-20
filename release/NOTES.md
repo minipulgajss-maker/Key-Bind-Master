@@ -1,1 +1,1 @@
-The plan now activates by itself in the app right after payment.
+New look: glass panels, Apple-style motion, 3D tilt and light on cards.
