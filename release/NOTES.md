@@ -1,4 +1,5 @@
-## KeyBind Master 3.7.12
+## KeyBind Master 3.7.13
 
-- The Pro panel lists what your current plan includes. Without a paid plan it shows what you have now.
+- Checkout: the payment button opens the secure Stripe page for the plan you choose. Sign in with Discord first, because your plan is linked to your account.
+- Discount codes are entered on the payment page.
 - Every update is required from this version on.
