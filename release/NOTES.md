@@ -1,1 +1,1 @@
-Version shown as Alpha.
+Cleaner Boost header.
