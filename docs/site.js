@@ -1,3 +1,4 @@
+import { startAuth } from './auth.js';
 import { startLanguage } from './i18n.js';
 
 let versionLine = '';
@@ -21,6 +22,7 @@ async function showVersion() {
 }
 
 startLanguage();
+startAuth();
 document.addEventListener('kbm-language', paintVersion);
 showVersion();
 
