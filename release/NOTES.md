@@ -1,1 +1,1 @@
-Code cleanup: old unused code removed. No changes to features.
+Updates now come from key-bind-master.xyz. Yellow backgrounds removed.
