@@ -1,6 +1,5 @@
-## KeyBind Master 3.7.9
+## KeyBind Master 3.7.10
 
-- Discord-bound codes: a code is redeemed on your Discord account, not on the device.
-- Plans sync from your Discord account when you sign in and when the app starts.
-- Old local subscriptions are cleared once after this update.
+- Codes only work while you are signed in with Discord.
+- Signing out, or starting the app while signed out, removes plans that came from codes.
 - Every update is required from this version on.
