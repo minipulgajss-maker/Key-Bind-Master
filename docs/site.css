@@ -261,3 +261,5 @@ footer a:hover { color: var(--sienna); }
   .thanks img { animation: none; }
 }
 .js .tile.reveal.in:hover, .js .how-steps li.reveal.in:hover { transform: translateY(-6px); }
+.top nav:not(:has(.nav-pill)) a[aria-current] { background: var(--sienna); }
+.login-card h2, .thanks-card h2 { font-size: clamp(24px, 3vw, 34px); }

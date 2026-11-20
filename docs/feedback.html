@@ -7,7 +7,7 @@
 <meta name="description" content="Tell us what you think about KeyBind Master. Share an idea, report a bug or say thanks, in any language.">
 <meta name="theme-color" content="#FFE5B4">
 <link rel="icon" href="img/icon.png">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://keybind-invites.minipulgajss.workers.dev; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://keybind-invites.minipulgajss.workers.dev https://discord.com; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="canonical" href="https://key-bind-master.xyz/feedback.html">
 <meta property="og:type" content="website">
@@ -41,7 +41,14 @@
     <p class="lead" data-i18n="fb.lead">Tell us what you like, what breaks and what you wish it did. Write in your own language.</p>
   </div>
 
-  <form class="fb-form" id="fb-form" novalidate>
+  <section class="thanks-card login-card" id="fb-login">
+    <h2 data-i18n="fb.login.title">Sign in to send feedback</h2>
+    <p class="lead" data-i18n="fb.login.text">Use the same Discord account as in the app. Each feedback gives you 3 days of Max, once every 7 days, in the app's Gifts tab.</p>
+    <a class="btn btn-large" id="fb-login-button" href="#" data-i18n="fb.login.button">Sign in with Discord</a>
+  </section>
+
+  <p class="form-note" id="fb-user" hidden></p>
+  <form class="fb-form" id="fb-form" novalidate hidden>
     <div class="field">
       <span class="label" id="rating-label" data-i18n="fb.rating">How would you rate it?</span>
       <div class="stars" id="stars" role="radiogroup" aria-labelledby="rating-label"></div>
@@ -74,6 +81,7 @@
     <span class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span>
     <h2 data-i18n="fb.thanks.title">Thank you!</h2>
     <p class="lead" data-i18n="fb.thanks.text">Your message arrived. We read everything and use it to make the app better.</p>
+    <p class="lead" id="fb-gift"></p>
     <button class="btn btn-primary" id="fb-again" type="button" data-i18n="fb.again">Send another</button>
   </section>
 </main>

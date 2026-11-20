@@ -1,6 +1,9 @@
 import { currentLanguage, startLanguage, text } from './i18n.js';
 
 const ENDPOINT = 'https://keybind-invites.minipulgajss.workers.dev/v1/feedback';
+const CLIENT_ID = '1573069411802161222';
+const REDIRECT = `${location.origin}/feedback.html`;
+const TOKEN_KEY = 'kbm.discord';
 const MIN = 10;
 const MAX = 1000;
 const LINK = /(?:https?:\/\/|www\.)\S+|\b[a-z0-9-]{2,}\.(?:com|net|org|io|xyz|ru|cn|tk|top|site|online|shop|club|link|click)\b/i;
@@ -25,6 +28,58 @@ let rating = 0;
 let category = 'idea';
 let opened = Date.now();
 let busy = false;
+let token = '';
+
+const store = {
+  get: () => { try { return JSON.parse(sessionStorage.getItem(TOKEN_KEY) ?? 'null'); } catch { return null; } },
+  set: (value) => { try { sessionStorage.setItem(TOKEN_KEY, JSON.stringify(value)); } catch {} },
+  clear: () => { try { sessionStorage.removeItem(TOKEN_KEY); } catch {} }
+};
+
+function readLogin() {
+  const params = new URLSearchParams(location.hash.slice(1));
+  const fresh = params.get('access_token');
+  if (fresh) {
+    const expected = sessionStorage.getItem(`${TOKEN_KEY}.state`);
+    history.replaceState(null, '', location.pathname);
+    if (expected && params.get('state') === expected) store.set({ token: fresh, until: Date.now() + Number(params.get('expires_in') ?? 0) * 1000 });
+  }
+  const saved = store.get();
+  return saved && saved.until > Date.now() ? saved.token : '';
+}
+
+function startLogin(event) {
+  event.preventDefault();
+  const state = crypto.getRandomValues(new Uint32Array(4)).join('');
+  try { sessionStorage.setItem(`${TOKEN_KEY}.state`, state); } catch {}
+  const query = new URLSearchParams({ client_id: CLIENT_ID, response_type: 'token', redirect_uri: REDIRECT, scope: 'identify', state });
+  location.href = `https://discord.com/oauth2/authorize?${query}`;
+}
+
+async function showUser() {
+  const user = document.getElementById('fb-user');
+  try {
+    const response = await fetch('https://discord.com/api/v10/users/@me', { headers: { authorization: `Bearer ${token}` } });
+    if (!response.ok) throw new Error();
+    const me = await response.json();
+    user.textContent = `${text('fb.login.as')} ${me.global_name || me.username}`;
+    user.hidden = false;
+  } catch {
+    store.clear();
+    token = '';
+    gate();
+  }
+}
+
+function gate() {
+  document.getElementById('fb-login').hidden = Boolean(token);
+  form.hidden = !token;
+}
+
+document.getElementById('fb-login-button').addEventListener('click', startLogin);
+token = readLogin();
+gate();
+if (token) showUser();
 
 const stars = Array.from({ length: 5 }, (_, index) => {
   const star = document.createElement('button');
@@ -78,7 +133,7 @@ const fail = (key) => {
   send.textContent = text('fb.send');
 };
 
-const REJECTS = { short: 'err.short', long: 'err.long', links: 'err.links', rude: 'err.rude', spam: 'err.spam', fast: 'err.fast', duplicate: 'err.duplicate', rate: 'err.rate', invalid: 'err.invalid' };
+const REJECTS = { login: 'err.login', short: 'err.short', long: 'err.long', links: 'err.links', rude: 'err.rude', spam: 'err.spam', fast: 'err.fast', duplicate: 'err.duplicate', rate: 'err.rate', invalid: 'err.invalid' };
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -96,11 +151,19 @@ form.addEventListener('submit', async (event) => {
   try {
     const response = await fetch(ENDPOINT, {
       method: 'POST',
-      headers: { 'content-type': 'application/json' },
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${token}` },
       body: JSON.stringify({ rating, category, message: body, name: name.value.trim(), website: trap.value, took: Date.now() - opened, uiLang: currentLanguage() })
     });
     const reply = await response.json().catch(() => ({}));
+    if (response.status === 401) {
+      store.clear();
+      token = '';
+      gate();
+      return fail('err.login');
+    }
     if (!response.ok) return fail(REJECTS[reply.code] ?? 'err.invalid');
+    const gift = document.getElementById('fb-gift');
+    gift.textContent = reply.gift ? text('fb.gift.yes') : reply.nextGiftAt ? `${text('fb.gift.wait')} ${new Date(reply.nextGiftAt * 1000).toLocaleDateString(currentLanguage())}.` : '';
     form.hidden = true;
     thanks.hidden = false;
     thanks.scrollIntoView({ behavior: 'smooth', block: 'center' });
