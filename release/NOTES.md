@@ -1,1 +1,1 @@
-Gifts tab: end your current plan to open a gift.
+New Settings with tabs and 5 animation styles. 29 new actions: close heavy apps, stop Boost, clear DNS, and quick links to 26 Windows settings and tools. Boost now warns on Wi-Fi and shows your ping over time.
