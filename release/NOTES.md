@@ -1,1 +1,1 @@
-7 new Boost optimizations: AutoPlay pop-ups off, Storage Sense paused, Snap layouts off, Shake to minimize off, Fullscreen optimizations off, drives never sleep, aggressive CPU boost. All undo themselves when Boost stops.
+Smarter server picker: it learns which regions get worse at each hour of the day and avoids them at those times.
