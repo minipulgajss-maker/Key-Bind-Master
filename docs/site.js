@@ -14,7 +14,7 @@ async function showVersion() {
     if (!response.ok) return;
     const { version, size } = await response.json();
     const megabytes = size ? ` · ${(size / 1048576).toFixed(1)} MB` : '';
-    versionLine = `v${version}${megabytes} · Windows 10 / 11 · 64-bit`;
+    versionLine = `Alpha ${version}${megabytes} · Windows 10 / 11 · 64-bit`;
     paintVersion();
   } catch {
     return;

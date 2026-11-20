@@ -24,7 +24,7 @@ await send(channel.id, {
     type: 17,
     components: [
       { type: 12, items: [{ media: { url: 'attachment://banner.png' } }] },
-      { type: 10, content: `## KeyBind Master ${version}\n**${notes.title}**` },
+      { type: 10, content: `## KeyBind Master Alpha ${version}\n**${notes.title}**` },
       { type: 14, divider: true, spacing: 1 },
       { type: 10, content: `### What's new\n${notes.items.join('\n')}` },
       { type: 14, divider: true, spacing: 1 },
