@@ -24,7 +24,7 @@ startLanguage();
 document.addEventListener('kbm-language', paintVersion);
 showVersion();
 
-const reveals = [...document.querySelectorAll('.reveal')];
+const reveals = [...document.querySelectorAll('.reveal, .facts')];
 if ('IntersectionObserver' in window && reveals.length) {
   const seen = new IntersectionObserver(
     (entries) =>
@@ -158,4 +158,82 @@ if (navLinks.length) {
     { threshold: [0, 0.25, 0.5, 0.75], rootMargin: '-80px 0px -30% 0px' }
   );
   SECTIONS.forEach((id) => document.getElementById(id) && observer.observe(document.getElementById(id)));
+}
+
+const calm = matchMedia('(prefers-reduced-motion: reduce)');
+const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+
+const header = document.querySelector('.top');
+const stage = document.querySelector('[data-stage]');
+let framePending = false;
+
+function onScroll() {
+  framePending = false;
+  header?.classList.toggle('is-scrolled', window.scrollY > 8);
+  if (!stage || calm.matches) return;
+  const box = stage.getBoundingClientRect();
+  const progress = Math.min(1, Math.max(0, (window.innerHeight - box.top) / (box.height * 0.9 + window.innerHeight * 0.25)));
+  stage.style.setProperty('--p', progress.toFixed(3));
+}
+window.addEventListener('scroll', () => {
+  if (framePending) return;
+  framePending = true;
+  requestAnimationFrame(onScroll);
+}, { passive: true });
+window.addEventListener('resize', onScroll);
+onScroll();
+
+const MAX_TILT = 10;
+
+function tilt(card) {
+  const reset = () => {
+    card.classList.remove('is-tilting');
+    card.style.setProperty('--rx', '0deg');
+    card.style.setProperty('--ry', '0deg');
+    card.style.setProperty('--lift', '0');
+  };
+  card.addEventListener('pointermove', (event) => {
+    if (!finePointer.matches || calm.matches) return;
+    const box = card.getBoundingClientRect();
+    const x = (event.clientX - box.left) / box.width;
+    const y = (event.clientY - box.top) / box.height;
+    card.classList.add('is-tilting');
+    card.style.setProperty('--ry', `${((x - 0.5) * MAX_TILT * 2).toFixed(2)}deg`);
+    card.style.setProperty('--rx', `${((0.5 - y) * MAX_TILT * 2).toFixed(2)}deg`);
+    card.style.setProperty('--gx', `${(x * 100).toFixed(1)}%`);
+    card.style.setProperty('--gy', `${(y * 100).toFixed(1)}%`);
+    card.style.setProperty('--lift', '1');
+  });
+  card.addEventListener('pointerleave', reset);
+}
+document.querySelectorAll('.shot.tilt').forEach(tilt);
+
+document.querySelectorAll('.tile').forEach((tile) =>
+  tile.addEventListener('pointermove', (event) => {
+    const box = tile.getBoundingClientRect();
+    tile.style.setProperty('--mx', `${event.clientX - box.left}px`);
+    tile.style.setProperty('--my', `${event.clientY - box.top}px`);
+  })
+);
+
+const nav = document.querySelector('.top nav');
+if (nav) {
+  const pill = document.createElement('span');
+  pill.className = 'nav-pill';
+  pill.setAttribute('aria-hidden', 'true');
+  nav.prepend(pill);
+  const place = () => {
+    const current = nav.querySelector('a[aria-current]');
+    if (!current) {
+      pill.style.opacity = '0';
+      return;
+    }
+    pill.style.opacity = '1';
+    pill.style.width = `${current.offsetWidth}px`;
+    pill.style.transform = `translateX(${current.offsetLeft}px)`;
+  };
+  new MutationObserver(place).observe(nav, { attributes: true, subtree: true, attributeFilter: ['aria-current'] });
+  document.addEventListener('kbm-language', () => requestAnimationFrame(place));
+  window.addEventListener('resize', place);
+  place();
 }
