@@ -1,1 +1,1 @@
-Simpler admin panel. Daily Ultra code in the daily-codes channel.
+Better text contrast. Website claims and terms updated for Discord sign-in.
