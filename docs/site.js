@@ -222,12 +222,16 @@ if (nav) {
   pill.className = 'nav-pill';
   pill.setAttribute('aria-hidden', 'true');
   nav.prepend(pill);
+  let shown = false;
   const place = () => {
     const current = nav.querySelector('a[aria-current]');
     if (!current) {
       pill.style.opacity = '0';
+      shown = false;
       return;
     }
+    pill.classList.toggle('is-instant', !shown);
+    shown = true;
     pill.style.opacity = '1';
     pill.style.width = `${current.offsetWidth}px`;
     pill.style.transform = `translateX(${current.offsetLeft}px)`;
