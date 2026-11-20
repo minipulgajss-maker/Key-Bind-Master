@@ -1,1 +1,1 @@
-Website: Discord sign-in in the top bar. Gifts tab explains when a plan never ends.
+Cancelling a plan now also cancels it on your Discord account, so your gifts can be opened.
