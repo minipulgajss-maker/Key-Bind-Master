@@ -1,1 +1,1 @@
-New Settings with tabs and 5 animation styles. 29 new actions: close heavy apps, stop Boost, clear DNS, and quick links to 26 Windows settings and tools. Boost now warns on Wi-Fi and shows your ping over time.
+7 new Boost optimizations: AutoPlay pop-ups off, Storage Sense paused, Snap layouts off, Shake to minimize off, Fullscreen optimizations off, drives never sleep, aggressive CPU boost. All undo themselves when Boost stops.
