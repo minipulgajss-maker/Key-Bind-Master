@@ -38,6 +38,21 @@ p { margin: 0; text-wrap: pretty; }
 .top nav a:hover, .top nav a[aria-current] { border-color: var(--sienna); }
 .top nav a[aria-current] { color: var(--sienna); }
 .lang { appearance: none; border: 0; padding: 8px 14px; border-radius: 999px; background: var(--raised); color: inherit; font: inherit; font-size: 14px; font-weight: 650; box-shadow: inset 0 0 0 1px var(--line); cursor: pointer; }
+.lang-menu { position: relative; display: inline-block; }
+.lang-button { display: inline-flex; align-items: center; gap: 6px; transition: background 160ms var(--ease-out), box-shadow 160ms var(--ease-out); }
+.lang-button svg, .lang-option svg { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.lang-button svg { transition: transform 240ms var(--ease-out); }
+.lang-button[aria-expanded="true"] svg { transform: rotate(180deg); }
+.lang-button:hover { background: var(--cream); }
+.lang-list { position: absolute; top: calc(100% + 8px); right: 0; z-index: 30; display: grid; gap: 2px; min-width: 168px; margin: 0; padding: 6px; list-style: none; border-radius: 18px; background: var(--raised); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-float); transform-origin: top right; }
+.lang-list:not([hidden]) { animation: lang-pop 220ms var(--ease-spring) both; }
+.lang-option { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 9px 12px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 140ms var(--ease-out); }
+.lang-option:hover, .lang-option:focus-visible { background: var(--cream); outline: none; }
+.lang-option[aria-selected="true"] { font-weight: 800; color: var(--sienna); }
+.lang-option svg { opacity: 0; transition: opacity 160ms var(--ease-out); }
+.lang-option[aria-selected="true"] svg { opacity: 1; }
+@keyframes lang-pop { from { opacity: 0; transform: scale(0.94) translateY(-4px); } }
+@media (prefers-reduced-motion: reduce) { .lang-list:not([hidden]) { animation: none; } }
 .lang:focus-visible { outline: 3px solid var(--sienna); outline-offset: 2px; }
 
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; border: 0; border-radius: 12px; font: inherit; font-weight: 700; font-size: 15px; text-decoration: none; cursor: pointer; transition: scale 320ms var(--ease-spring), transform 140ms var(--ease-out), box-shadow 160ms var(--ease-out), background 160ms var(--ease-out); }

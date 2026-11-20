@@ -172,6 +172,77 @@ export function applyLanguage(lang) {
   document.dispatchEvent(new CustomEvent('kbm-language', { detail: lang }));
 }
 
+const CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+const CHEVRON = '<svg viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="m6 9 6 6 6-6"/></svg>';
+
+function languageMenu(select) {
+  select.hidden = true;
+  const wrap = document.createElement('div');
+  wrap.className = 'lang-menu';
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'lang lang-button';
+  button.setAttribute('aria-haspopup', 'listbox');
+  button.setAttribute('aria-expanded', 'false');
+  const list = document.createElement('ul');
+  list.className = 'lang-list';
+  list.setAttribute('role', 'listbox');
+  list.hidden = true;
+  const options = Object.entries(LANGS).map(([code, label]) => {
+    const option = document.createElement('li');
+    option.className = 'lang-option';
+    option.setAttribute('role', 'option');
+    option.dataset.code = code;
+    option.tabIndex = -1;
+    option.innerHTML = `<span>${label}</span>${CHECK}`;
+    list.append(option);
+    return option;
+  });
+  const close = () => {
+    list.hidden = true;
+    button.setAttribute('aria-expanded', 'false');
+  };
+  const sync = (code) => {
+    button.innerHTML = `${LANGS[code] ?? LANGS.en}${CHEVRON}`;
+    options.forEach((option) => option.setAttribute('aria-selected', String(option.dataset.code === code)));
+  };
+  const choose = (code) => {
+    select.value = code;
+    close();
+    button.focus();
+    select.dispatchEvent(new Event('change'));
+  };
+  button.addEventListener('click', () => {
+    list.hidden = !list.hidden;
+    button.setAttribute('aria-expanded', String(!list.hidden));
+    if (!list.hidden) options.find((option) => option.getAttribute('aria-selected') === 'true')?.focus();
+  });
+  list.addEventListener('click', (event) => {
+    const option = event.target.closest('.lang-option');
+    if (option) choose(option.dataset.code);
+  });
+  list.addEventListener('keydown', (event) => {
+    const index = options.indexOf(document.activeElement);
+    if (event.key === 'Escape') {
+      close();
+      button.focus();
+    } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      options[(index + (event.key === 'ArrowDown' ? 1 : -1) + options.length) % options.length].focus();
+    } else if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      if (index >= 0) choose(options[index].dataset.code);
+    }
+  });
+  document.addEventListener('click', (event) => {
+    if (!wrap.contains(event.target)) close();
+  });
+  select.addEventListener('change', () => sync(select.value));
+  wrap.append(button, list);
+  select.after(wrap);
+  sync(select.value);
+}
+
 export function startLanguage() {
   document.querySelectorAll('[data-lang-select]').forEach((select) => {
     select.replaceChildren(...Object.entries(LANGS).map(([code, label]) => Object.assign(document.createElement('option'), { value: code, textContent: label })));
@@ -184,6 +255,7 @@ export function startLanguage() {
         applyLanguage(select.value);
       }
     });
+    languageMenu(select);
   });
   applyLanguage(currentLanguage());
 }
