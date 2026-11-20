@@ -1,5 +1,4 @@
-## KeyBind Master 3.7.11
+## KeyBind Master 3.7.12
 
-- More Apple-style motion across the app: hover lift on cards, pressed feedback on rows and buttons, spring switch knob, animated focus rings, spring toasts.
-- Motion follows the on/off setting and the system reduced-motion setting.
+- The Pro panel lists what your current plan includes. Without a paid plan it shows what you have now.
 - Every update is required from this version on.
