@@ -275,11 +275,16 @@ function startGyro() {
 
 if (!finePointer.matches && 'DeviceOrientationEvent' in window) {
   if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-    window.addEventListener('touchend', async () => {
+    const ask = async () => {
       try {
-        if ((await DeviceOrientationEvent.requestPermission()) === 'granted') startGyro();
+        if ((await DeviceOrientationEvent.requestPermission()) !== 'granted') return;
+        startGyro();
+        document.removeEventListener('click', ask);
+        document.removeEventListener('touchend', ask);
       } catch {}
-    }, { once: true });
+    };
+    document.addEventListener('click', ask);
+    document.addEventListener('touchend', ask);
   } else {
     startGyro();
   }
