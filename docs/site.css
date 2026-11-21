@@ -275,3 +275,20 @@ footer a:hover { color: var(--sienna); }
 .auth-menu a, .auth-menu button { display: block; width: 100%; padding: 9px 12px; border: 0; border-radius: 12px; background: none; color: inherit; font: inherit; font-size: 15px; font-weight: 600; text-align: left; text-decoration: none; cursor: pointer; }
 .auth-menu a:hover, .auth-menu button:hover, .auth-menu a:focus-visible, .auth-menu button:focus-visible { background: var(--cream); outline: none; }
 @media (max-width: 560px) { .auth-name, .auth-button span { display: none; } .auth-button { padding: 8px; } }
+@media (max-width: 860px) {
+  .bento, .split, .how, .faq { padding-block: 48px; gap: 24px; }
+  .bento-grid, .how-steps { gap: 12px; }
+  .tile { grid-template-columns: 44px 1fr; align-items: center; gap: 4px 14px; padding: 18px; border-radius: 22px; }
+  .tile-icon { grid-row: span 2; width: 44px; height: 44px; border-radius: 14px; margin: 0; align-self: start; }
+  .tile h3 { margin: 0; font-size: 17px; }
+  .tile p { grid-column: 2; font-size: 15px; }
+  .how-steps li { padding: 20px; gap: 4px; }
+  .how-steps li::before { font-size: 28px; margin-bottom: 6px; }
+  .packs li { flex-direction: column; gap: 2px; }
+  .split-copy > p, .bento-head p { font-size: 16px; }
+  .facts { margin-top: 40px; gap: 10px; }
+  .facts p { padding: 18px; }
+  .facts strong { font-size: 36px; }
+  .hero-stage { margin-top: 32px; }
+  .get { margin-top: 24px; border-radius: 28px; }
+}

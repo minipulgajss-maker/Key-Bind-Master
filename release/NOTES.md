@@ -1,1 +1,1 @@
-21 new options: accent colors, text size, compact mode, sharp corners, page width, big key caps, high contrast, solid panels, tilt off, hide home sections and turned-off shortcuts, start page, message length, pin shortcuts, copy keys, Ctrl+1-5 tabs, copy history as CSV, reset look.
+Removed the text size option that broke the layout. Cleaner website on phones.
