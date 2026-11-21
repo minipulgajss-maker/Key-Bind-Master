@@ -1,1 +1,1 @@
-Removed the text size option that broke the layout. Cleaner website on phones.
+What's new window after each update. Search matches are highlighted.
