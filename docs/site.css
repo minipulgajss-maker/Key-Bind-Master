@@ -231,7 +231,7 @@ footer a:hover { color: var(--sienna); }
   .top .btn { padding: 8px 14px; font-size: 14px; }
   .shot, .shot.tilt > img { border-radius: 16px; }
 }
-@media (max-width: 400px) { .brand span { display: none; } }
+@media (max-width: 340px) { .brand span { display: none; } }
 
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
@@ -291,4 +291,11 @@ footer a:hover { color: var(--sienna); }
   .facts strong { font-size: 36px; }
   .hero-stage { margin-top: 32px; }
   .get { margin-top: 24px; border-radius: 28px; }
+}
+.brand { min-width: 0; }
+.brand span { overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 680px) {
+  .top { gap: 8px; }
+  .top > [data-download] { display: none; }
+  .lang-button span, .lang-button .lang-label { display: none; }
 }
