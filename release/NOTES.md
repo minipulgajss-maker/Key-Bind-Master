@@ -1,1 +1,1 @@
-Boost lists only installed games, with each game icon.
+Uninstalled games no longer show up in Boost.
