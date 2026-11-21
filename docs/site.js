@@ -193,6 +193,8 @@ function tilt(card) {
     card.style.setProperty('--rx', '0deg');
     card.style.setProperty('--ry', '0deg');
     card.style.setProperty('--lift', '0');
+    card.style.setProperty('--sx', '0');
+    card.style.setProperty('--sy', '0');
   };
   card.addEventListener('pointermove', (event) => {
     if (!finePointer.matches || calm.matches) return;
@@ -205,6 +207,8 @@ function tilt(card) {
     card.style.setProperty('--gx', `${(x * 100).toFixed(1)}%`);
     card.style.setProperty('--gy', `${(y * 100).toFixed(1)}%`);
     card.style.setProperty('--lift', '1');
+    card.style.setProperty('--sx', ((0.5 - x) * 40).toFixed(1));
+    card.style.setProperty('--sy', ((0.5 - y) * 30).toFixed(1));
   });
   card.addEventListener('pointerleave', reset);
 }
@@ -264,6 +268,8 @@ function onOrientation(event) {
       shot.style.setProperty('--gx', `${(50 + x * 50).toFixed(1)}%`);
       shot.style.setProperty('--gy', `${(50 + y * 50).toFixed(1)}%`);
       shot.style.setProperty('--lift', '1');
+      shot.style.setProperty('--sx', (-x * 20).toFixed(1));
+      shot.style.setProperty('--sy', (-y * 15).toFixed(1));
     });
   });
 }
