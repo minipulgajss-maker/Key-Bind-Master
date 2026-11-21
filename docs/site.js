@@ -193,8 +193,8 @@ function tilt(card) {
     card.style.setProperty('--rx', '0deg');
     card.style.setProperty('--ry', '0deg');
     card.style.setProperty('--lift', '0');
-    card.style.setProperty('--sx', '0');
-    card.style.setProperty('--sy', '0');
+    ['--sx', '--sy', '--tz', '--ty'].forEach((name) => card.style.setProperty(name, '0'));
+    card.style.setProperty('--rz', '0deg');
   };
   card.addEventListener('pointermove', (event) => {
     if (!finePointer.matches || calm.matches) return;
@@ -207,6 +207,10 @@ function tilt(card) {
     card.style.setProperty('--gx', `${(x * 100).toFixed(1)}%`);
     card.style.setProperty('--gy', `${(y * 100).toFixed(1)}%`);
     card.style.setProperty('--lift', '1');
+    const reach = Math.hypot(x - 0.5, y - 0.5);
+    card.style.setProperty('--rz', `${((x - 0.5) * (y - 0.5) * -8).toFixed(2)}deg`);
+    card.style.setProperty('--tz', `${((0.5 - reach) * 60).toFixed(1)}px`);
+    card.style.setProperty('--ty', `${((y - 0.5) * -10).toFixed(1)}px`);
     card.style.setProperty('--sx', ((0.5 - x) * 40).toFixed(1));
     card.style.setProperty('--sy', ((0.5 - y) * 30).toFixed(1));
   });
@@ -268,6 +272,9 @@ function onOrientation(event) {
       shot.style.setProperty('--gx', `${(50 + x * 50).toFixed(1)}%`);
       shot.style.setProperty('--gy', `${(50 + y * 50).toFixed(1)}%`);
       shot.style.setProperty('--lift', '1');
+      shot.style.setProperty('--rz', `${(x * -6).toFixed(2)}deg`);
+      shot.style.setProperty('--tz', `${(-y * 70).toFixed(1)}px`);
+      shot.style.setProperty('--ty', `${(y * 18).toFixed(1)}px`);
       shot.style.setProperty('--sx', (-x * 20).toFixed(1));
       shot.style.setProperty('--sy', (-y * 15).toFixed(1));
     });

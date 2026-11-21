@@ -321,3 +321,6 @@ footer a:hover { color: var(--sienna); }
 .glare { background: radial-gradient(circle at var(--gx) var(--gy), rgb(255 255 255 / 0.55), rgb(255 255 255 / 0.08) 40%, rgb(255 255 255 / 0) 65%); mix-blend-mode: overlay; }
 .shot.tilt::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; transform: perspective(1400px) rotateX(var(--rx)) rotateY(var(--ry)) translateZ(calc(32px * var(--lift))); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5), inset 0 0 0 1px rgb(255 255 255 / 0.12); transition: transform 600ms var(--ease-out); }
 .shot.tilt.is-tilting::after { transition: transform 140ms ease-out; }
+
+.shot { --rz: 0deg; --tz: 0px; --ty: 0px; }
+.shot.tilt > img, .glare, .shot.tilt::after { transform: perspective(1400px) translateY(var(--ty)) translateZ(calc(30px * var(--lift) + var(--tz))) rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(var(--rz)) scale(calc(1 + 0.02 * var(--lift))); }
