@@ -299,3 +299,6 @@ footer a:hover { color: var(--sienna); }
   .top > [data-download] { display: none; }
   .lang-button span, .lang-button .lang-label { display: none; }
 }
+.tilt-toggle { display: none; }
+@media (hover: none) { .tilt-toggle { display: inline-flex; margin: 20px auto 0; } .tilt-note { text-align: center; } }
+.tilt-toggle[hidden] { display: none; }

@@ -273,6 +273,42 @@ function startGyro() {
   window.addEventListener('deviceorientation', onOrientation);
 }
 
+let gyroSeen = false;
+window.addEventListener('deviceorientation', (event) => { if (event.beta != null) gyroSeen = true; }, { once: false, passive: true });
+
+if (!finePointer.matches && stage && !calm.matches) {
+  const toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'btn btn-ghost tilt-toggle';
+  toggle.textContent = 'Tilt with your phone';
+  const note = document.createElement('p');
+  note.className = 'fine tilt-note';
+  note.setAttribute('aria-live', 'polite');
+  stage.after(toggle, note);
+  toggle.addEventListener('click', async () => {
+    if (!('DeviceOrientationEvent' in window)) {
+      note.textContent = 'This browser has no motion sensor access.';
+      return;
+    }
+    try {
+      if (typeof DeviceOrientationEvent.requestPermission === 'function' && (await DeviceOrientationEvent.requestPermission()) !== 'granted') {
+        note.textContent = 'Motion access was blocked. Allow it in your browser settings and reload.';
+        return;
+      }
+    } catch {
+      note.textContent = 'This browser does not allow motion access. Try Safari.';
+      return;
+    }
+    startGyro();
+    toggle.hidden = true;
+    note.textContent = 'Tilt your phone.';
+    setTimeout(() => {
+      if (!gyroSeen) note.textContent = 'No motion data arrived. Try Safari, or check Settings › Safari › Motion & Orientation Access.';
+      else note.textContent = '';
+    }, 1500);
+  });
+}
+
 if (!finePointer.matches && 'DeviceOrientationEvent' in window) {
   if (typeof DeviceOrientationEvent.requestPermission === 'function') {
     const ask = async () => {
