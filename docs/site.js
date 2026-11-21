@@ -339,3 +339,18 @@ if (!finePointer.matches && 'DeviceOrientationEvent' in window) {
     startGyro();
   }
 }
+
+document.querySelectorAll('.shot.tilt').forEach((shot) => {
+  shot.style.cursor = 'pointer';
+  shot.addEventListener('click', () => {
+    if (calm.matches || shot.getAnimations().length) return;
+    shot.animate(
+      [
+        { transform: 'perspective(1600px) rotateY(0deg) scale(1)' },
+        { transform: 'perspective(1600px) rotateY(180deg) scale(0.92)', offset: 0.5 },
+        { transform: 'perspective(1600px) rotateY(360deg) scale(1)' }
+      ],
+      { duration: 1100, easing: 'cubic-bezier(0.65, 0, 0.35, 1)' }
+    );
+  });
+});
