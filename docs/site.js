@@ -243,3 +243,44 @@ if (nav) {
   window.addEventListener('resize', place);
   place();
 }
+
+const shots = [...document.querySelectorAll('.shot.tilt')];
+const TILT_RANGE = 25;
+let gyroFrame = 0;
+let gyroStarted = false;
+
+function onOrientation(event) {
+  if (calm.matches || event.beta == null) return;
+  cancelAnimationFrame(gyroFrame);
+  gyroFrame = requestAnimationFrame(() => {
+    const clamp = (value) => Math.max(-1, Math.min(1, value / TILT_RANGE));
+    const x = clamp(event.gamma ?? 0);
+    const y = clamp((event.beta ?? 0) - 45);
+    shots.forEach((shot) => {
+      shot.classList.add('is-tilting');
+      shot.style.setProperty('--ry', `${(x * MAX_TILT).toFixed(2)}deg`);
+      shot.style.setProperty('--rx', `${(-y * MAX_TILT).toFixed(2)}deg`);
+      shot.style.setProperty('--gx', `${(50 + x * 50).toFixed(1)}%`);
+      shot.style.setProperty('--gy', `${(50 + y * 50).toFixed(1)}%`);
+      shot.style.setProperty('--lift', '1');
+    });
+  });
+}
+
+function startGyro() {
+  if (gyroStarted || finePointer.matches || !shots.length || !('DeviceOrientationEvent' in window)) return;
+  gyroStarted = true;
+  window.addEventListener('deviceorientation', onOrientation);
+}
+
+if (!finePointer.matches && 'DeviceOrientationEvent' in window) {
+  if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+    window.addEventListener('touchend', async () => {
+      try {
+        if ((await DeviceOrientationEvent.requestPermission()) === 'granted') startGyro();
+      } catch {}
+    }, { once: true });
+  } else {
+    startGyro();
+  }
+}
