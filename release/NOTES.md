@@ -1,1 +1,1 @@
-Press Ctrl+/ to see every keyboard shortcut. Ctrl+Shift+P pauses or resumes all shortcuts.
+21 new options: accent colors, text size, compact mode, sharp corners, page width, big key caps, high contrast, solid panels, tilt off, hide home sections and turned-off shortcuts, start page, message length, pin shortcuts, copy keys, Ctrl+1-5 tabs, copy history as CSV, reset look.
