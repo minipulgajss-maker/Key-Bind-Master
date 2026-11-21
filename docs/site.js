@@ -245,7 +245,8 @@ if (nav) {
 }
 
 const shots = [...document.querySelectorAll('.shot.tilt')];
-const TILT_RANGE = 25;
+const TILT_RANGE = 18;
+const PHONE_TILT = 22;
 let gyroFrame = 0;
 let gyroStarted = false;
 
@@ -258,8 +259,8 @@ function onOrientation(event) {
     const y = clamp((event.beta ?? 0) - 45);
     shots.forEach((shot) => {
       shot.classList.add('is-tilting');
-      shot.style.setProperty('--ry', `${(x * MAX_TILT).toFixed(2)}deg`);
-      shot.style.setProperty('--rx', `${(-y * MAX_TILT).toFixed(2)}deg`);
+      shot.style.setProperty('--ry', `${(x * PHONE_TILT).toFixed(2)}deg`);
+      shot.style.setProperty('--rx', `${(-y * PHONE_TILT).toFixed(2)}deg`);
       shot.style.setProperty('--gx', `${(50 + x * 50).toFixed(1)}%`);
       shot.style.setProperty('--gy', `${(50 + y * 50).toFixed(1)}%`);
       shot.style.setProperty('--lift', '1');
