@@ -1,1 +1,1 @@
-What's new window after each update. Search matches are highlighted.
+Safer Boost: it stops by itself when the game closes, and Recommended no longer changes mouse, keyboard, menus or background apps.
