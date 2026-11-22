@@ -328,7 +328,7 @@ footer a:hover { color: var(--sienna); }
 /* Liquid glass */
 :root { --lgx: -0.7; --lgy: -0.7; --light-angle: 135deg; }
 .top.is-scrolled { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: none; }
-.top::before { content: ""; position: absolute; inset: 0 0 -28px; z-index: -1; pointer-events: none; opacity: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--sand) 80%, transparent) 40%, color-mix(in srgb, var(--cream) 0%, transparent)); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); -webkit-mask-image: linear-gradient(180deg, #000 50%, transparent); mask-image: linear-gradient(180deg, #000 50%, transparent); transition: opacity 300ms ease; }
+.top::before { content: ""; position: absolute; inset: 0 0 -28px; z-index: -1; pointer-events: none; opacity: 0; background: linear-gradient(180deg, rgb(7 11 24 / 0.55) 40%, color-mix(in srgb, var(--cream) 0%, transparent)); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); -webkit-mask-image: linear-gradient(180deg, #000 50%, transparent); mask-image: linear-gradient(180deg, #000 50%, transparent); transition: opacity 300ms ease; }
 .top.is-scrolled::before { opacity: 1; }
 .top nav, .lang-button, .auth-button, .top > .btn-ghost, .tilt-toggle { --glass-r: 999px; }
 .auth-menu, .lang-list { --glass-r: 18px; --rim: 6px; }
@@ -438,3 +438,34 @@ body { background: radial-gradient(1200px 700px at 50% -10%, #1A1A1F 0%, #000 60
 @media (pointer: coarse) { .top nav a, .lang-button, .auth-button { min-height: 44px; } }
 .auth-providers button { display: flex; align-items: center; gap: 10px; }
 .auth-providers svg { width: 18px; height: 18px; flex: none; fill: currentColor; }
+
+/* Ambient glass */
+:root { --raised: rgb(255 255 255 / 0.06); --sunken: rgb(0 0 0 / 0.3); --cream: rgb(255 255 255 / 0.08); }
+body { background: #070B18; }
+body::before {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 55% at 25% 22%, rgb(37 99 235 / 0.7), transparent 72%),
+    radial-gradient(45% 50% at 80% 30%, rgb(124 58 237 / 0.5), transparent 72%),
+    radial-gradient(55% 55% at 55% 85%, rgb(14 116 144 / 0.55), transparent 72%),
+    radial-gradient(35% 40% at 10% 80%, rgb(190 24 93 / 0.28), transparent 72%),
+    #070B18;
+  filter: blur(40px);
+  animation: ambient-drift 38s ease-in-out infinite alternate;
+}
+@keyframes ambient-drift {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  50% { transform: translate3d(4%, -3%, 0) rotate(8deg) scale(1.08); }
+  100% { transform: translate3d(-4%, 3%, 0) rotate(-6deg) scale(1.02); }
+}
+@media (prefers-reduced-motion: reduce) { body::before { animation: none; } }
+:is(.tile, .band-card, .plan, .card, .fb-form, .how-steps li, .thanks-card, .facts > *) {
+  background: rgb(255 255 255 / 0.06);
+  -webkit-backdrop-filter: blur(28px) saturate(1.5);
+  backdrop-filter: blur(28px) saturate(1.5);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08), inset 0 1px 0 rgb(255 255 255 / 0.08), 0 18px 40px -20px rgb(0 0 0 / 0.7);
+}

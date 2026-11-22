@@ -1,1 +1,1 @@
-New minimal black design with liquid glass and per-device layouts.
+Dark glass design with ambient color glow.
