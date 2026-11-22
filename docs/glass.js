@@ -42,8 +42,8 @@ export function startLiquidGlass() {
     const dx = (x - 0.5) * 2;
     const dy = (y - 0.5) * 2;
     const length = Math.max(1, Math.hypot(dx, dy));
-    root.style.setProperty('--gx', (dx / length).toFixed(3));
-    root.style.setProperty('--gy', (dy / length).toFixed(3));
+    root.style.setProperty('--lgx', (dx / length).toFixed(3));
+    root.style.setProperty('--lgy', (dy / length).toFixed(3));
     root.style.setProperty('--light-angle', `${Math.round(90 + (Math.atan2(dy, dx) * 180) / Math.PI)}deg`);
   };
   let frame = 0;

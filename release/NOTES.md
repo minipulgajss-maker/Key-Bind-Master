@@ -1,1 +1,1 @@
-Apple-style liquid glass: frosted middle, clear polished edges, content under the top bar.
+New minimal black design with liquid glass and per-device layouts.
