@@ -170,7 +170,7 @@ function sheet() {
     }
     dialog.replaceChildren(
       close,
-      element('img', { src: 'img/icon.png', alt: '', width: 56, height: 56, className: 'sheet-logo' }),
+      element('img', { src: 'img/logo-midnight.svg', alt: '', width: 56, height: 56, className: 'sheet-logo' }),
       element('h2', { id: 'auth-title', textContent: text('auth.title') }),
       element('p', { className: 'sheet-sub', textContent: text('auth.sub') }),
       list,

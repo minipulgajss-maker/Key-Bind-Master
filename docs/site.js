@@ -1,5 +1,4 @@
 import { startAuth } from './auth.js';
-import { startLiquidGlass } from './glass.js?v=2';
 import { startLanguage } from './i18n.js';
 
 const calm = matchMedia('(prefers-reduced-motion: reduce)');
@@ -21,7 +20,6 @@ async function showVersion() {
 
 startLanguage();
 startAuth();
-startLiquidGlass();
 showVersion();
 document.addEventListener('kbm-language', paintVersion);
 
@@ -230,7 +228,7 @@ function tilts() {
   const onTilt = (event) => {
     if (event.beta == null) return;
     cancelAnimationFrame(frame);
-    frame = requestAnimationFrame(() => shots.forEach((shot) => setTilt(shot, clamp(event.gamma ?? 0), clamp((event.beta ?? 45) - 45), 1.3)));
+    frame = requestAnimationFrame(() => shots.filter((shot) => shot.offsetParent).forEach((shot) => setTilt(shot, clamp(event.gamma ?? 0), clamp((event.beta ?? 45) - 45), 1.3)));
   };
   const start = () => window.addEventListener('deviceorientation', onTilt, { passive: true });
   if (typeof DeviceOrientationEvent.requestPermission !== 'function') return start();

@@ -1,1 +1,1 @@
-Dark glass design with ambient color glow.
+Theme logos and a faster website.
