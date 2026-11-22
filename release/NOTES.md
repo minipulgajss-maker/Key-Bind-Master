@@ -1,1 +1,1 @@
-Apple-style liquid glass: lens edges, moving light glints, flex on press.
+Clear Apple-style liquid glass, no blur.

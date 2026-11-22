@@ -1,8 +1,11 @@
-const RIM = 22;
+const RIM = 30;
+const CURVE = [[0, 255], [4, 225], [10, 190], [18, 158], [24, 140]];
 const ramp = (channel, axis) => {
   const color = (v) => (channel === 'r' ? `rgb(${v},0,0)` : `rgb(0,${v},0)`);
   const [x2, y2] = axis === 'x' ? ['100%', '0'] : ['0', '100%'];
-  return `data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" preserveAspectRatio="none"><defs><linearGradient id="g" x2="${x2}" y2="${y2}"><stop offset="0" stop-color="${color(255)}"/><stop offset="${RIM}%" stop-color="${color(128)}"/><stop offset="${100 - RIM}%" stop-color="${color(128)}"/><stop offset="1" stop-color="${color(0)}"/></linearGradient></defs><rect width="100" height="100" fill="url(#g)"/></svg>`)}`;
+  const stops = [...CURVE.map(([o, v]) => [o, v]), [RIM, 128], [100 - RIM, 128], ...CURVE.map(([o, v]) => [100 - o, 255 - v]).reverse()]
+    .map(([o, v]) => `<stop offset="${o}%" stop-color="${color(v)}"/>`).join('');
+  return `data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" preserveAspectRatio="none"><defs><linearGradient id="g" x2="${x2}" y2="${y2}">${stops}</linearGradient></defs><rect width="100" height="100" fill="url(#g)"/></svg>`)}`;
 };
 
 export function startLiquidGlass() {
@@ -14,9 +17,15 @@ export function startLiquidGlass() {
     <feImage href="${ramp('r', 'x')}" preserveAspectRatio="none" result="mx"/>
     <feImage href="${ramp('g', 'y')}" preserveAspectRatio="none" result="my"/>
     <feComposite in="mx" in2="my" operator="arithmetic" k2="1" k3="1" result="map"/>
-    <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="soft"/>
-    <feDisplacementMap in="soft" in2="map" scale="70" xChannelSelector="R" yChannelSelector="G" result="bent"/>
-    <feColorMatrix in="bent" type="saturate" values="1.8"/>
+    <feDisplacementMap in="SourceGraphic" in2="map" scale="60" xChannelSelector="R" yChannelSelector="G" result="dr"/>
+    <feDisplacementMap in="SourceGraphic" in2="map" scale="56" xChannelSelector="R" yChannelSelector="G" result="dg"/>
+    <feDisplacementMap in="SourceGraphic" in2="map" scale="53" xChannelSelector="R" yChannelSelector="G" result="db"/>
+    <feColorMatrix in="dr" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="r"/>
+    <feColorMatrix in="dg" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="g"/>
+    <feColorMatrix in="db" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="b"/>
+    <feBlend in="r" in2="g" mode="screen" result="rg"/>
+    <feBlend in="rg" in2="b" mode="screen" result="rgb"/>
+    <feColorMatrix in="rgb" type="saturate" values="1.25"/>
   </filter>`;
   document.body.append(svg);
   const root = document.documentElement;
