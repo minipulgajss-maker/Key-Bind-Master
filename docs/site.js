@@ -1,6 +1,6 @@
-import { startAuth } from './auth.js';
-import { startLiquidGlass } from './glass.js?v=1795361287';
-import { startLanguage } from './i18n.js';
+import { startAuth } from './auth.js?v=1795368351';
+import { startLiquidGlass } from './glass.js?v=1795368351';
+import { startLanguage } from './i18n.js?v=1795368351';
 
 let versionLine = '';
 
