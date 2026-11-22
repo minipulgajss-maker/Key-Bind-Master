@@ -1,4 +1,4 @@
-import { text } from './i18n.js?v=1795377537';
+import { text } from './i18n.js?v=1795379422';
 
 const CLIENT_ID = '1573069411802161222';
 const REDIRECT = 'https://key-bind-master.xyz/feedback.html';
@@ -164,6 +164,19 @@ function mount() {
   render();
   return render;
 }
+
+async function hideServerLink() {
+  const links = document.querySelectorAll('.discord-link');
+  links.forEach((link) => (link.hidden = false));
+  const current = token();
+  if (!user || !current) return;
+  try {
+    const response = await fetch('https://keybind-invites.minipulgajss.workers.dev/v1/discord-member', { method: 'POST', headers: { authorization: `Bearer ${current}`, 'content-type': 'application/json' }, body: '{}' });
+    const reply = await response.json();
+    if (reply.member === true) links.forEach((link) => (link.hidden = true));
+  } catch {}
+}
+document.addEventListener('kbm-user', hideServerLink);
 
 export async function startAuth() {
   readHash();

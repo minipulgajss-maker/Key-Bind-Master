@@ -1,1 +1,1 @@
-Free week protection and Delete all my data.
+Discord button hides for server members.

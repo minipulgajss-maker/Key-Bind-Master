@@ -394,3 +394,4 @@ footer a:hover { color: var(--sienna); }
 @media (max-width: 680px) { .discord-link { padding: 9px; } .discord-link span { display: none; } }
 .trailer { max-width: 1040px; margin: 64px auto 0; padding: 0 var(--gutter); }
 .trailer video { display: block; width: 100%; height: auto; border-radius: 26px; background: var(--cream); box-shadow: var(--shadow-float); }
+.discord-link[hidden] { display: none; }
