@@ -11,9 +11,9 @@ function paintVersion() {
 
 async function showVersion() {
   try {
-    const response = await fetch('version.json', { cache: 'no-store' });
-    if (!response.ok) return;
-    const { version, size } = await response.json();
+    const release = await releasedVersion();
+    if (!release) return;
+    const { version, size } = release;
     const megabytes = size ? ` · ${(size / 1048576).toFixed(1)} MB` : '';
     versionLine = `Version ${version}${megabytes} · Windows 10 / 11 · 64-bit`;
     paintVersion();
@@ -22,14 +22,22 @@ async function showVersion() {
   }
 }
 
-async function releasedInstaller() {
+async function releasedVersion() {
+  const valid = (value) => (/^\d+\.\d+\.\d+$/.test(value ?? '') ? value : '');
   try {
-    const reply = await (await fetch('https://keybind-invites.minipulgajss.workers.dev/v1/release', { cache: 'no-store' })).json();
-    const version = reply.release?.version;
-    return /^\d+\.\d+\.\d+$/.test(version ?? '') ? `builds/KeyBind-Master-Setup-${version}.exe` : 'KeyBind-Master-Setup.exe';
-  } catch {
-    return 'KeyBind-Master-Setup.exe';
-  }
+    const reply = await (await fetch('https://keybind-invites.minipulgajss.workers.dev/v1/release?track=2', { cache: 'no-store' })).json();
+    if (valid(reply.release?.version)) return { version: reply.release.version };
+  } catch {}
+  try {
+    const stable = await (await fetch('track/stable.json', { cache: 'no-store' })).json();
+    if (valid(stable.version)) return stable;
+  } catch {}
+  return null;
+}
+
+async function releasedInstaller() {
+  const release = await releasedVersion();
+  return release ? `builds/KeyBind-Master-Setup-${release.version}.exe` : 'KeyBind-Master-Setup.exe';
 }
 
 if (document.querySelector('[data-installer]')) {
