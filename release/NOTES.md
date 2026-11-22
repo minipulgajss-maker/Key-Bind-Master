@@ -1,1 +1,1 @@
-New app layout with a side menu and a clean shortcut list.
+Tidier home page and better animations.
