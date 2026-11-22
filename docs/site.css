@@ -386,3 +386,9 @@ footer a:hover { color: var(--sienna); }
   :is(.top nav, .lang-button, .auth-button, .top > .btn-ghost, .auth-menu, .lang-list, .tilt-toggle)::before,
   :is(.top nav, .lang-button, .auth-button, .top > .btn-ghost, .auth-menu, .lang-list, .tilt-toggle)::after, .eyebrow { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background: var(--raised, #fff8ec); }
 }
+
+.discord-link { gap: 8px; padding: 9px 16px; background: #5865F2; color: #fff; font-size: 14px; box-shadow: 0 10px 22px -12px rgb(88 101 242 / 0.9); }
+.discord-link:hover { background: #4752C4; transform: translateY(-1px); }
+.discord-link svg { width: 18px; height: 18px; fill: currentColor; }
+.brand span::after { content: "™"; margin-left: 1px; font-size: 0.55em; vertical-align: super; }
+@media (max-width: 680px) { .discord-link { padding: 9px; } .discord-link span { display: none; } }
