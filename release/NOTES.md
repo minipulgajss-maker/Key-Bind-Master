@@ -1,1 +1,1 @@
-Discord button hides for server members.
+Admin-approved update releases.

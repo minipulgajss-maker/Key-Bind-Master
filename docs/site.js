@@ -22,6 +22,23 @@ async function showVersion() {
   }
 }
 
+async function releasedInstaller() {
+  try {
+    const reply = await (await fetch('https://keybind-invites.minipulgajss.workers.dev/v1/release', { cache: 'no-store' })).json();
+    const version = reply.release?.version;
+    return /^\d+\.\d+\.\d+$/.test(version ?? '') ? `builds/KeyBind-Master-Setup-${version}.exe` : 'KeyBind-Master-Setup.exe';
+  } catch {
+    return 'KeyBind-Master-Setup.exe';
+  }
+}
+
+if (document.querySelector('[data-installer]')) {
+  releasedInstaller().then((file) => {
+    document.querySelectorAll('[data-installer]').forEach((link) => (link.href = file));
+    setTimeout(() => location.assign(file), 600);
+  });
+}
+
 startLanguage();
 startAuth();
 startLiquidGlass();
