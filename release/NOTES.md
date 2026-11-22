@@ -1,1 +1,1 @@
-Back to the cream style with liquid glass.
+Fixed the step labels in the new shortcut window.
