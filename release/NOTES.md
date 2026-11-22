@@ -1,1 +1,1 @@
-Uninstalled games no longer show up in Boost.
+Liquid glass look on the top bar, menus and messages.
