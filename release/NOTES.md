@@ -1,1 +1,1 @@
-Liquid glass closer to Apple: curved lens edges and a moving light rim.
+Apple-style liquid glass: frosted middle, clear polished edges, content under the top bar.
