@@ -1,1 +1,1 @@
-Clear Apple-style liquid glass, no blur.
+Liquid glass closer to Apple: curved lens edges and a moving light rim.

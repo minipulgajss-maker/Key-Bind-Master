@@ -1,5 +1,5 @@
-const RIM = 30;
-const CURVE = [[0, 255], [4, 225], [10, 190], [18, 158], [24, 140]];
+const RIM = 34;
+const CURVE = [[0, 255], [1, 224], [2, 212], [3, 203], [5, 189], [7, 178], [10, 165], [14, 152], [19, 141], [25, 133], [30, 129]];
 const ramp = (channel, axis) => {
   const color = (v) => (channel === 'r' ? `rgb(${v},0,0)` : `rgb(0,${v},0)`);
   const [x2, y2] = axis === 'x' ? ['100%', '0'] : ['0', '100%'];
@@ -17,9 +17,9 @@ export function startLiquidGlass() {
     <feImage href="${ramp('r', 'x')}" preserveAspectRatio="none" result="mx"/>
     <feImage href="${ramp('g', 'y')}" preserveAspectRatio="none" result="my"/>
     <feComposite in="mx" in2="my" operator="arithmetic" k2="1" k3="1" result="map"/>
-    <feDisplacementMap in="SourceGraphic" in2="map" scale="60" xChannelSelector="R" yChannelSelector="G" result="dr"/>
-    <feDisplacementMap in="SourceGraphic" in2="map" scale="56" xChannelSelector="R" yChannelSelector="G" result="dg"/>
-    <feDisplacementMap in="SourceGraphic" in2="map" scale="53" xChannelSelector="R" yChannelSelector="G" result="db"/>
+    <feDisplacementMap in="SourceGraphic" in2="map" scale="84" xChannelSelector="R" yChannelSelector="G" result="dr"/>
+    <feDisplacementMap in="SourceGraphic" in2="map" scale="78" xChannelSelector="R" yChannelSelector="G" result="dg"/>
+    <feDisplacementMap in="SourceGraphic" in2="map" scale="72" xChannelSelector="R" yChannelSelector="G" result="db"/>
     <feColorMatrix in="dr" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="r"/>
     <feColorMatrix in="dg" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="g"/>
     <feColorMatrix in="db" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="b"/>
