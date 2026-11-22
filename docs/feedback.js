@@ -1,5 +1,5 @@
-import { signIn, signOut, token } from './auth.js';
-import { currentLanguage, text } from './i18n.js';
+import { signIn, signOut, startAuth, token } from './auth.js';
+import { currentLanguage, startLanguage, text } from './i18n.js';
 
 const ENDPOINT = 'https://keybind-invites.minipulgajss.workers.dev/v1/feedback';
 const MIN = 10;
@@ -148,3 +148,5 @@ document.addEventListener('kbm-language', () => {
   if (!busy) send.textContent = text('fb.send');
 });
 
+startLanguage();
+startAuth();

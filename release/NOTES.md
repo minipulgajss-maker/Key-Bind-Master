@@ -1,1 +1,1 @@
-Theme logos and a faster website.
+Back to the cream style with liquid glass.
