@@ -104,7 +104,6 @@ function glideTo(top, done) {
   };
   glide = requestAnimationFrame(step);
 }
-window.addEventListener('scrollend', () => (steering = false));
 
 function goTo(id, smooth) {
   if (smooth) steering = true;
