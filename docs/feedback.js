@@ -1,5 +1,5 @@
-import { signIn, signOut, startAuth, token } from './auth.js?v=1795379422';
-import { currentLanguage, startLanguage, text } from './i18n.js?v=1795379422';
+import { signIn, signOut, startAuth, token } from './auth.js?v=1795380914';
+import { currentLanguage, startLanguage, text } from './i18n.js?v=1795380914';
 
 const ENDPOINT = 'https://keybind-invites.minipulgajss.workers.dev/v1/feedback';
 const MIN = 10;

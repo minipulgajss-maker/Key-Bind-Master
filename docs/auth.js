@@ -1,4 +1,4 @@
-import { text } from './i18n.js?v=1795379422';
+import { text } from './i18n.js?v=1795380914';
 
 const CLIENT_ID = '1573069411802161222';
 const REDIRECT = 'https://key-bind-master.xyz/feedback.html';
@@ -53,7 +53,7 @@ export function signIn() {
   const state = crypto.getRandomValues(new Uint32Array(4)).join('');
   session.set(STATE_KEY, state);
   session.set(RETURN_KEY, location.pathname);
-  const query = new URLSearchParams({ client_id: CLIENT_ID, response_type: 'token', redirect_uri: REDIRECT, scope: 'identify', state });
+  const query = new URLSearchParams({ client_id: CLIENT_ID, response_type: 'token', redirect_uri: REDIRECT, scope: 'identify guilds', state });
   location.href = `https://discord.com/oauth2/authorize?${query}`;
 }
 
@@ -170,6 +170,14 @@ async function hideServerLink() {
   links.forEach((link) => (link.hidden = false));
   const current = token();
   if (!user || !current) return;
+  try {
+    const invite = await (await fetch('https://discord.com/api/v10/invites/vNcbe8Xdvg')).json();
+    const guilds = await fetch('https://discord.com/api/v10/users/@me/guilds', { headers: { authorization: `Bearer ${current}` } });
+    if (guilds.ok && invite.guild?.id) {
+      if ((await guilds.json()).some((entry) => entry.id === invite.guild.id)) links.forEach((link) => (link.hidden = true));
+      return;
+    }
+  } catch {}
   try {
     const response = await fetch('https://keybind-invites.minipulgajss.workers.dev/v1/discord-member', { method: 'POST', headers: { authorization: `Bearer ${current}`, 'content-type': 'application/json' }, body: '{}' });
     const reply = await response.json();
