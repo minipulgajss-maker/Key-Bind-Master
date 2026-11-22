@@ -1,4 +1,5 @@
 import { startAuth } from './auth.js';
+import { startLiquidGlass } from './glass.js';
 import { startLanguage } from './i18n.js';
 
 let versionLine = '';
@@ -23,6 +24,7 @@ async function showVersion() {
 
 startLanguage();
 startAuth();
+startLiquidGlass();
 document.addEventListener('kbm-language', paintVersion);
 showVersion();
 
