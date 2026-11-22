@@ -1,1 +1,1 @@
-Fixed the step labels in the new shortcut window.
+Clean app design with smooth effects, no glass.
