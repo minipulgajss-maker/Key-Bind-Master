@@ -1,1 +1,1 @@
-Tidier home page and better animations.
+Launch checks: links, security and legal pages.
