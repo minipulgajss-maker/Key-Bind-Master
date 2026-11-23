@@ -1,1 +1,1 @@
-KeyBind Master 1.0.0
+KeyBind Master v1.0
