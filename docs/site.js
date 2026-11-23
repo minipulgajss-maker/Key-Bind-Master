@@ -15,7 +15,7 @@ async function showVersion() {
     if (!release) return;
     const { version, size } = release;
     const megabytes = size ? ` · ${(size / 1048576).toFixed(1)} MB` : '';
-    versionLine = `v1.0 (${version})${megabytes} · Windows 10 / 11 · 64-bit`;
+    versionLine = `V1.0.0${megabytes} · Windows 10 / 11 · 64-bit`;
     paintVersion();
   } catch {
     return;
