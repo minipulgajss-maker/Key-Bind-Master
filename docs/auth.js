@@ -1,4 +1,4 @@
-import { text } from './i18n.js?v=1795380914';
+import { text } from './i18n.js?v=1795467444';
 
 const CLIENT_ID = '1573069411802161222';
 const REDIRECT = 'https://key-bind-master.xyz/feedback.html';
