@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       task:
-        description: 'setup or announce'
+        description: 'setup, announce or clean'
         default: 'setup'
 
 permissions:
@@ -52,3 +52,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Post the special code
         run: node .github/discord/announce.mjs
+
+  clean:
+    if: github.event_name == 'workflow_dispatch' && inputs.task == 'clean'
+    runs-on: ubuntu-latest
+    env:
+      DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Remove every slash command
+        run: node .github/discord/clean.mjs
