@@ -30,6 +30,8 @@ jobs:
         run: node .github/discord/info.mjs
       - name: Apply automatic moderation
         run: node .github/discord/automod.mjs
+      - name: Leave every other server
+        run: node .github/discord/leave.mjs
 
   setup:
     if: github.event_name == 'workflow_dispatch' && inputs.task == 'setup'
