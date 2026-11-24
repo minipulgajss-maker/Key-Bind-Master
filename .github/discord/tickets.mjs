@@ -29,7 +29,7 @@ await call(`/channels/${panel.id}/messages`, {
   method: 'POST',
   json: {
     embeds: [{
-      color: 0x2b2d31,
+      color: 0x242429,
       author: { name: 'KeyBind Master · Help desk' },
       title: 'Talk to the staff',
       description: 'Have a question or a problem? Pick a topic below and a **private channel** opens where only you and the staff can talk.\n\n' +

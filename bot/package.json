@@ -1,9 +1,7 @@
 {
-  "name": "keybind-master-bot",
-  "version": "1.0.0",
+  "name": "keybind-bot",
   "private": true,
   "type": "module",
-  "main": "index.js",
   "engines": { "node": ">=20" },
-  "dependencies": { "discord.js": "14.28.1" }
+  "dependencies": { "@vercel/functions": "^2.0.0" }
 }
