@@ -76,3 +76,5 @@ jobs:
         run: node .github/discord/perks.mjs
       - name: Verify card
         run: node .github/discord/verify.mjs
+      - name: Rules
+        run: node .github/discord/rules.mjs

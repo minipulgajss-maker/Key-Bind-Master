@@ -49,7 +49,9 @@ for (const guild of await guilds()) {
   const trap = channels.find((item) => item.name === 'honeypot');
   const others = channels.filter((item) => item.id !== trap?.id && [0, 2, 5, 13, 15].includes(item.type)).map((item) => item.id).slice(0, 50);
   const staff = roles.filter((role) => ['Admin', 'Moderator'].includes(role.name)).map((role) => role.id);
-  const wanted = rules(log.id, trap, others, staff).filter((rule) => trap || rule.name !== 'KBM · Honeypot');
+  const wanted = rules(log.id, trap, others, staff).filter((rule) => rule.name !== 'KBM · Honeypot');
+  const oldTrap = existing.find((item) => item.name === 'KBM · Honeypot');
+  if (oldTrap) await call(`/guilds/${guild.id}/auto-moderation/rules/${oldTrap.id}`, { method: 'DELETE' });
   for (const rule of wanted) {
     const current = existing.find((item) => item.name === rule.name);
     const body = { ...rule, enabled: true };

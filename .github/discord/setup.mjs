@@ -35,7 +35,7 @@ const CHANNELS = [
   { name: 'shutdown', type: 0, category: 'app', access: 'readonly' },
   { name: 'general', type: 0, category: 'community', access: 'chat', topic: 'Talk about anything. Be nice.' },
   { name: 'Lobby', type: 2, category: 'community', access: 'voice' },
-  { name: 'honeypot', type: 0, category: 'community', access: 'chat', topic: '⚠️ Do NOT type here. Any message here mutes you instantly. This channel catches scam bots.' },
+  { name: 'honeypot', type: 0, category: 'community', access: 'chat', topic: 'Do NOT type here. Anyone who posts here is removed from the server automatically. This channel catches scam bots.' },
   { name: 'mod-log', type: 0, category: 'staff', access: 'staff' }
 ];
 
