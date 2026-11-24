@@ -25,18 +25,24 @@ const panel = channels.find((entry) => entry.type === 0 && entry.name === 'ticke
 }));
 const old = (await call(`/channels/${panel.id}/messages?limit=50`)) ?? [];
 for (const message of old) if (message.author?.id === me.id) await call(`/channels/${panel.id}/messages/${message.id}`, { method: 'DELETE' });
+const text = (content) => ({ type: 10, content });
+const line = (spacing = 1) => ({ type: 14, divider: true, spacing });
 await call(`/channels/${panel.id}/messages`, {
   method: 'POST',
   json: {
-    embeds: [{
-      color: 0x242429,
-      author: { name: 'KeyBind Master · Help desk' },
-      title: 'Talk to the staff',
-      description: 'Have a question or a problem? Pick a topic below and a **private channel** opens where only you and the staff can talk.\n\n' +
-        Object.values(TYPES).map(([label, hint]) => `**${label}** — ${hint}`).join('\n') +
-        '\n\n**Before you open one**\n• Update the app to the latest version\n• Sign in with Discord in the app if it is about a plan or code\n• One open ticket per person',
-      footer: { text: 'We usually answer within a day.' }
-    }],
-    components: [{ type: 1, components: [{ type: 3, custom_id: 'kbm:ticket', placeholder: 'What do you need help with?', options: Object.entries(TYPES).map(([value, [label, hint]]) => ({ value, label, description: hint })) }] }]
+    flags: 1 << 15,
+    components: [{
+      type: 17,
+      components: [
+        { type: 9, components: [text('-# KeyBind Master · Help desk\n## Need a hand?\nPick a topic below and a **private channel** opens where only you and the staff can talk. Our assistant answers in seconds, in any language.')], accessory: { type: 11, media: { url: 'https://key-bind-master.xyz/img/icon.png' } } },
+        line(),
+        text(Object.values(TYPES).map(([label, hint]) => `**${label}**\n-# ${hint}`).join('\n')),
+        line(),
+        text('**Before you open one**\n- Update the app to the latest version\n- Sign in with Discord in the app for plan or code questions\n- One open ticket per person'),
+        line(2),
+        { type: 1, components: [{ type: 3, custom_id: 'kbm:ticket', placeholder: 'Choose a topic', options: Object.entries(TYPES).map(([value, [label, hint]]) => ({ value, label, description: hint })) }] },
+        text('-# Max and Ultra members get priority support · We usually answer within a day')
+      ]
+    }]
   }
 });

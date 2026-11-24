@@ -72,3 +72,5 @@ jobs:
       - uses: actions/checkout@v4
       - name: Ticket channel and panel
         run: node .github/discord/tickets.mjs
+      - name: Plan roles, perk channels and info
+        run: node .github/discord/perks.mjs

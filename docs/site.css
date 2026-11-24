@@ -395,3 +395,18 @@ footer a:hover { color: var(--sienna); }
 .trailer { max-width: 1040px; margin: 64px auto 0; padding: 0 var(--gutter); }
 .trailer video { display: block; width: 100%; height: auto; border-radius: 26px; background: var(--cream); box-shadow: var(--shadow-float); }
 .discord-link[hidden] { display: none; }
+
+.plans { max-width: var(--wide); margin: 0 auto; padding-block: clamp(56px, 9vw, 120px); display: grid; gap: 40px; }
+.plans-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+.plan { position: relative; display: grid; align-content: start; gap: 10px; padding: 28px; border-radius: 28px; background: var(--raised); box-shadow: inset 0 0 0 1px var(--line); }
+.plan h3 { font-size: 30px; font-weight: 800; }
+.plan-tag { margin: 0; color: var(--muted); }
+.plan .ticks { margin: 8px 0 0; font-size: 15px; }
+.plan-hot { box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--amber) 60%, transparent), var(--shadow-card); }
+.plan-top { background: var(--sienna); color: var(--on-sienna); box-shadow: var(--shadow-float); }
+.plan-top .plan-tag { color: color-mix(in srgb, var(--on-sienna) 78%, transparent); }
+.plan-badge { justify-self: start; padding: 4px 12px; border-radius: 999px; background: var(--amber); color: var(--cognac); font-size: 13px; font-weight: 700; }
+.plans > .fine { color: var(--muted); text-align: center; }
+@media (max-width: 960px) { .plans-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .plans-grid { grid-template-columns: 1fr; } }
+.plan-top .ticks li::before { background-color: color-mix(in srgb, var(--on-sienna) 88%, transparent); }
