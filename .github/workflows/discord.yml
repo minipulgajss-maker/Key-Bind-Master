@@ -36,3 +36,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Roles, channels and permissions
         run: node .github/discord/setup.mjs
+
+  announce:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    env:
+      DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Post the special code
+        run: node .github/discord/announce.mjs
