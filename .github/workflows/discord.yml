@@ -7,6 +7,10 @@ on:
   schedule:
     - cron: '17 */6 * * *'
   workflow_dispatch:
+    inputs:
+      task:
+        description: 'setup or announce'
+        default: 'setup'
 
 permissions:
   contents: read
@@ -28,7 +32,7 @@ jobs:
         run: node .github/discord/automod.mjs
 
   setup:
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' && inputs.task == 'setup'
     runs-on: ubuntu-latest
     env:
       DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
@@ -38,7 +42,7 @@ jobs:
         run: node .github/discord/setup.mjs
 
   announce:
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' && inputs.task == 'announce'
     runs-on: ubuntu-latest
     env:
       DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
