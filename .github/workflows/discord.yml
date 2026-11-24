@@ -74,3 +74,5 @@ jobs:
         run: node .github/discord/tickets.mjs
       - name: Plan roles, perk channels and info
         run: node .github/discord/perks.mjs
+      - name: Verify card
+        run: node .github/discord/verify.mjs

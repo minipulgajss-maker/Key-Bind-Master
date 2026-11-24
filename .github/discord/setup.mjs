@@ -1,3 +1,4 @@
+import { verifyCard } from './verify-card.mjs';
 import { IS_COMPONENTS_V2, SITE, call, guilds } from './api.mjs';
 
 const bit = (n) => 1n << BigInt(n);
@@ -77,21 +78,7 @@ const upsertChannel = async (guildId, all, spec) => {
     : call(`/guilds/${guildId}/channels`, { method: 'POST', json: body });
 };
 
-const verifyCard = {
-  flags: IS_COMPONENTS_V2,
-  allowed_mentions: { parse: [] },
-  components: [{
-    type: 17,
-    components: [
-      { type: 10, content: '# Welcome to KeyBind Master\nPress **Verify** to unlock the server.' },
-      { type: 14, divider: true, spacing: 1 },
-      { type: 10, content: '### Rules\n• Be respectful, no insults or hate\n• No spam, ads or invite links\n• No scams, fake links or "free nitro"\n• Keep it safe for everyone\n• Staff never DM you first asking for codes or passwords' },
-      { type: 14, divider: true, spacing: 1 },
-      { type: 10, content: `By verifying you agree to the rules, the Discord Terms of Service and Community Guidelines.\n🌐 ${SITE}` },
-      { type: 1, components: [{ type: 2, style: 3, label: 'Verify', emoji: { name: '✅' }, custom_id: 'kbm:verify' }] }
-    ]
-  }]
-};
+
 
 const me = await call('/users/@me');
 for (const guild of await guilds()) {
