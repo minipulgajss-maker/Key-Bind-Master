@@ -20,7 +20,7 @@ const role = {};
 for (const plan of PLANS) {
   const found = roles.find((entry) => entry.name === plan.name);
   role[plan.name] = found ?? (await call(`/guilds/${guild}/roles`, { method: 'POST', json: { name: plan.name, color: plan.color, hoist: plan.hoist, mentionable: false, permissions: '0' } }));
-  if (found) await call(`/guilds/${guild}/roles/${found.id}`, { method: 'PATCH', json: { color: plan.color, hoist: plan.hoist } });
+  if (found) await call(`/guilds/${guild}/roles/${found.id}`, { method: 'PATCH', json: { color: plan.color, hoist: plan.hoist } }).catch(() => null);
 }
 
 const bot = { id: me.id, type: 1, allow: String(VIEW | SEND | EMBED | ATTACH | HISTORY | MANAGE) };
