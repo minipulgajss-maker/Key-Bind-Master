@@ -37,7 +37,14 @@ async function releasedVersion() {
 
 async function releasedInstaller() {
   const release = await releasedVersion();
-  return release ? `builds/KeyBind-Master-Setup-${release.version}.exe` : 'KeyBind-Master-Setup.exe';
+  if (!release) return 'KeyBind-Master-Setup.exe';
+  const file = `builds/KeyBind-Master-Setup-${release.version}.exe`;
+  try {
+    const head = await fetch(file, { method: 'HEAD', cache: 'no-store' });
+    return head.ok ? file : 'KeyBind-Master-Setup.exe';
+  } catch {
+    return 'KeyBind-Master-Setup.exe';
+  }
 }
 
 if (document.querySelector('[data-installer]')) {
