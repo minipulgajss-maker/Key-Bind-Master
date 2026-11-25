@@ -1,6 +1,6 @@
-import { startAuth } from './auth.js?v=1795467444';
-import { startLiquidGlass } from './glass.js?v=1795467444';
-import { startLanguage } from './i18n.js?v=1795467444';
+import { startAuth } from './auth.js?v=1795620603';
+import { startLiquidGlass } from './glass.js?v=1795620603';
+import { startLanguage } from './i18n.js?v=1795620603';
 
 let versionLine = '';
 
@@ -15,7 +15,7 @@ async function showVersion() {
     if (!release) return;
     const { version, size } = release;
     const megabytes = size ? ` · ${(size / 1048576).toFixed(1)} MB` : '';
-    versionLine = `V1.0.0${megabytes} · Windows 10 / 11 · 64-bit`;
+    versionLine = `v${version}${megabytes} · Windows 10 / 11 · 64-bit`;
     paintVersion();
   } catch {
     return;
@@ -24,15 +24,26 @@ async function showVersion() {
 
 async function releasedVersion() {
   const valid = (value) => (/^\d+\.\d+\.\d+$/.test(value ?? '') ? value : '');
+  const parts = (value) => value.split('.').map(Number);
+  const newer = (a, b) => {
+    const [x, y] = [parts(a), parts(b)];
+    for (let i = 0; i < 3; i += 1) if (x[i] !== y[i]) return x[i] > y[i];
+    return false;
+  };
+  const found = [];
   try {
     const reply = await (await fetch('https://keybind-invites.minipulgajss.workers.dev/v1/release?track=2', { cache: 'no-store' })).json();
-    if (valid(reply.release?.version)) return { version: reply.release.version };
+    if (valid(reply.release?.version)) found.push({ version: reply.release.version });
   } catch {}
   try {
     const stable = await (await fetch('track/stable.json', { cache: 'no-store' })).json();
-    if (valid(stable.version)) return stable;
+    if (valid(stable.version)) found.push(stable);
   } catch {}
-  return null;
+  let best = null;
+  for (const item of found) {
+    if (!best || newer(item.version, best.version) || (item.version === best.version && item.size)) best = item;
+  }
+  return best;
 }
 
 async function releasedInstaller() {
